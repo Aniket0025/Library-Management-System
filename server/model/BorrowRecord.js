@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const borrowRecordSchema = new mongoose.Schema(
   {
@@ -7,23 +7,28 @@ const borrowRecordSchema = new mongoose.Schema(
       ref: "Book",
       required: true,
     },
+
     student: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
+
     status: {
       type: String,
       enum: ["requested", "issued", "returned", "rejected"],
       default: "requested",
     },
+
     requestDate: {
       type: Date,
       default: Date.now,
     },
+
     issueDate: Date,
     dueDate: Date,
     returnDate: Date,
+
     fine: {
       type: Number,
       default: 0,
@@ -33,4 +38,9 @@ const borrowRecordSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("BorrowRecord", borrowRecordSchema);
+const BorrowRecord = mongoose.model(
+  "BorrowRecord",
+  borrowRecordSchema
+);
+
+export default BorrowRecord;
