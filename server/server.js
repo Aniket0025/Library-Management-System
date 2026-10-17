@@ -1,16 +1,19 @@
 import express from "express";
 import dotenv from "dotenv";
+import authRoutes from "./src/routes/authRoutes.js";
 
 dotenv.config();
 import cors from "cors";
 
 import connectDB from "./src/config/db.js";
-import { success } from "zod";
+
 
 const app = express();
 
 app.use(cors());
-app.use(express.json);
+app.use(express.json());
+
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
     res.json({
